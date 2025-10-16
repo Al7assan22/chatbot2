@@ -25,7 +25,7 @@ def ask_gemini_chatbot(user_input):
     return response.text.strip()
 
 # ===== Streamlit UI =====
-st.set_page_config(page_title="Friendly Chatbot 🤖", page_icon="💬", layout="centered")
+st.set_page_config(page_title="Friendly Chatbot 🤖", page_icon="🤖", layout="centered")
 
 # ===== Custom Styling =====
 st.markdown("""
@@ -114,6 +114,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
 
