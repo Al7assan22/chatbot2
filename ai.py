@@ -3,7 +3,7 @@ import google.generativeai as genai
 import os
 
 # ===== Gemini API Setup =====
-genai.configure(api_key=("AIzaSyBF19kvor-MEHYqBOuEld42GmVA8Ci1x3w"))  # حط مفتاحك هنا
+genai.configure(api_key=("AIzaSyBF19kvor-MEHYqBOuEld42GmVA8Ci1x3w"))  
 
 # ===== Ask Function =====
 def ask_gemini_chatbot(user_input):
@@ -57,3 +57,4 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
