@@ -110,11 +110,12 @@ if user_message.strip():
 st.markdown(
     """
     <div class="footer">
-        Developed with ❤️ by <strong>Alhassan Mohamed Haggag</strong>
+        Developed By Alhassan Mohamed Haggag</strong>
     </div>
     """,
     unsafe_allow_html=True,
 )
+
 
 
 
