@@ -33,12 +33,64 @@ st.set_page_config(page_title="Friendly Chatbot", page_icon="🤖", layout="wide
 
 st.markdown(
     """
-    <div style="text-align:center;">
-        <h1 style="color:#1CABE2;">Friendly Chatbot 🤖</h1>
-        <p style="color:white;font-size:16px;">Ask anything, I'll answer directly!</p>
-    </div>
+    <style>
+    /* Background gradient */
+    [data-testid="stAppViewContainer"] {
+        background: linear-gradient(135deg, #0F2027, #203A43, #2C5364);
+        color: white;
+    }
+
+    /* Main title */
+    h1 {
+        font-family: 'Segoe UI', sans-serif;
+        color: #1CABE2;
+        text-align: center;
+        font-size: 48px;
+        margin-bottom: -10px;
+    }
+
+    /* Sub text */
+    p {
+        text-align: center;
+        font-size: 18px;
+        color: #E0E0E0;
+    }
+
+    /* Input box styling */
+    input {
+        border-radius: 10px !important;
+        padding: 10px !important;
+        font-size: 16px !important;
+    }
+
+    /* Answer box */
+    .stSuccess {
+        background-color: rgba(28, 171, 226, 0.2) !important;
+        border: 1px solid #1CABE2 !important;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    /* Spinner text */
+    .stSpinner > div > div {
+        color: #1CABE2 !important;
+        font-weight: bold;
+    }
+
+    /* Footer */
+    footer {
+        visibility: hidden;
+    }
+
+    .footer {
+        text-align: center;
+        color: #AAAAAA;
+        font-size: 14px;
+        margin-top: 30px;
+    }
+    </style>
     """,
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
 
 st.subheader("💬 Ask anything:")
@@ -59,6 +111,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
 
