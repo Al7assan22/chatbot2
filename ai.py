@@ -7,7 +7,6 @@ genai.configure(api_key=("AIzaSyBF19kvor-MEHYqBOuEld42GmVA8Ci1x3w"))  # حط م�
 
 # ===== Ask Function =====
 def ask_gemini_chatbot(user_input):
-    def ask_gemini_chatbot(user_input):
     prompt = f"""
     You are a friendly, conversational assistant.
     Respond to the user in a natural, warm, and engaging way.
@@ -25,7 +24,7 @@ def ask_gemini_chatbot(user_input):
     User: {user_input}
     Bot:
     """
-    return prompt
+   return prompt
 
     model = genai.GenerativeModel("gemini-2.5-flash")
     response = model.generate_content(prompt)
@@ -61,6 +60,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
 
