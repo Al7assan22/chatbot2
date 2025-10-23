@@ -98,7 +98,7 @@ st.markdown(
 st.markdown("<h1>Friendly Chatbot 🤖</h1>", unsafe_allow_html=True)
 st.markdown("<p>Ask anything, and I’ll answer right away!</p>", unsafe_allow_html=True)
 
-st.subheader("💬 Type your question below:")
+st.subheader("Input your question below:")
 user_message = st.text_input("Input your Question here...")
 
 if user_message.strip():
@@ -115,6 +115,7 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
 
 
 
