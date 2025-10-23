@@ -33,66 +33,40 @@ st.set_page_config(page_title="Friendly Chatbot", page_icon="🤖", layout="wide
 # ===== Custom CSS (Purple-Pink Gradient Theme) =====
 st.markdown(
     """
-    <style>
-    /* Background gradient */
-    [data-testid="stAppViewContainer"] {
-        background: linear-gradient(135deg, #3E1E68, #9A348E, #E84A5F);
-        color: white;
-    }
+    <div style="
+        text-align:center;
+        background: linear-gradient(135deg, #1f1c2c, #928DAB);
+        padding:40px;
+        border-radius:20px;
+        color:white;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        margin-bottom:30px;
+    ">
+        <img src="https://i.ibb.co/6v7d2zZ/profile-example.jpg" 
+             alt="Profile" 
+             style="width:130px;height:130px;border-radius:50%;
+                    border:3px solid #00E0FF;
+                    box-shadow:0 0 15px rgba(0,224,255,0.8);
+                    margin-bottom:15px;">
+             
+        <h1 style="color:#00E0FF;margin-top:10px;font-size:32px;">Friendly Chatbot 🤖</h1>
+        <p style="color:#E0E0E0;font-size:17px;">Ask anything — I'll answer you instantly and naturally!</p>
 
-    /* Main title */
-    h1 {
-        font-family: 'Segoe UI', sans-serif;
-        color: #F8E9F9;
-        text-align: center;
-        font-size: 48px;
-        margin-bottom: -10px;
-    }
-
-    /* Sub text */
-    p {
-        text-align: center;
-        font-size: 18px;
-        color: #FFDFFB;
-    }
-
-    /* Input box styling */
-    input {
-        border-radius: 10px !important;
-        padding: 10px !important;
-        font-size: 16px !important;
-        border: 1px solid #E84A5F !important;
-    }
-
-    /* Answer box */
-    .stSuccess {
-        background-color: rgba(232, 74, 95, 0.2) !important;
-        border: 1px solid #FF7AB8 !important;
-        border-radius: 10px;
-        padding: 10px;
-    }
-
-    /* Spinner text */
-    .stSpinner > div > div {
-        color: #FFD1E9 !important;
-        font-weight: bold;
-    }
-
-    /* Footer */
-    footer {
-        visibility: hidden;
-    }
-
-    .footer {
-        text-align: center;
-        color: #FFD1E9;
-        font-size: 14px;
-        margin-top: 30px;
-    }
-    </style>
+        <p style="margin-top:18px;">
+            <a href="https://www.instagram.com/YOUR_INSTAGRAM_USERNAME" target="_blank" 
+               style="color:#FF69B4;text-decoration:none;font-size:17px;margin-right:15px;font-weight:bold;">
+               📸 Instagram
+            </a>
+            <a href="https://www.facebook.com/YOUR_FACEBOOK_USERNAME" target="_blank" 
+               style="color:#1E90FF;text-decoration:none;font-size:17px;font-weight:bold;">
+               👍 Facebook
+            </a>
+        </p>
+    </div>
     """,
-    unsafe_allow_html=True,
+    unsafe_allow_html=True
 )
+
 
 # ===== UI =====
 st.markdown("<h1>Friendly Chatbot 🤖</h1>", unsafe_allow_html=True)
@@ -116,6 +90,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
 
