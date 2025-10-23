@@ -104,7 +104,7 @@ user_message = st.text_input("Input your Question here...")
 if user_message.strip():
     with st.spinner("⏳ Thinking..."):
         answer = ask_gemini_chatbot(user_message)
-    st.success(f"**✅ Answer:** {answer}")
+    st.success(answer)
 
 # ===== Footer =====
 st.markdown(
@@ -115,6 +115,7 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
 
 
 
