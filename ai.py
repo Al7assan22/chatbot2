@@ -109,12 +109,14 @@ if user_message.strip():
 # ===== Footer =====
 st.markdown(
     """
-    <div class="footer">
-        Developed By Alhassan Mohamed Haggag</strong>
-    </div>
+    <hr>
+    <p style="text-align:center;color:#AAAAAA;font-size:12px;">
+    Developed by <strong>Alhassan Mohamed Haggag</strong>
+    </p>
     """,
-    unsafe_allow_html=True,
+    unsafe_allow_html=True
 )
+
 
 
 
