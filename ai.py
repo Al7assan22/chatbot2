@@ -24,8 +24,7 @@ def ask_gemini_chatbot(user_input):
     User: {user_input}
     Bot:
     """
-   return prompt
-
+    
     model = genai.GenerativeModel("gemini-2.5-flash")
     response = model.generate_content(prompt)
     return response.text.strip()
@@ -60,6 +59,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
 
