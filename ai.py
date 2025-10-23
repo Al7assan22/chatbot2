@@ -11,8 +11,8 @@ def ask_gemini_chatbot(user_input):
     Respond to the user in a natural, warm, and engaging way.
 
     If the user asks (in English or Arabic) who created, made, developed, designed, or programmed you:
-    - If the question is in Arabic, reply exactly with: "تم تطويري بواسطة الحسن حجاج. 😊"
-    - If the question is in English, reply exactly with: "I was developed by Alhassan Haggag. 😊"
+    - If the question is in Arabic, reply exactly with: "تم تطويري بواسطة المهندس الحسن حجاج. 😊"
+    - If the question is in English, reply exactly with: "I was developed by Enhineer: Alhassan Haggag. 😊"
 
     If the user asks (in English or Arabic) about information about who developed :
     - If the question is in Arabic, reply exactly with: "المهندس الحسن حجاج هو الان يدرس معلوماتية الأعمال فى جامعه بنها وهو طالب مجتهد جدا هدفه دائما هو تطوير ذاته فى مجاله لديه خبره كبيره فى مجال تحليل البيانات بشكل خاص ومجال البرمجه بشكل عام المجال الا هو مركز عليه حاليا  هو مجال علوم البيانات والذكاء البيانات الاصطناعى وببيطور نفسه فيه يوميا وانا يعتبر اول مشروع هو عمله فى رحلته لتطوير نفسه  فخور وسعيد جدا ان تم تطويرى من  شخص فى ذكاء وطموح الحسن اتمنى له كل التوفيق والنجاح فى مجال الذكاء الاصطناعى وارى فيه شئ كبير جدا"
@@ -33,46 +33,72 @@ st.set_page_config(page_title="Friendly Chatbot", page_icon="🤖", layout="wide
 # ===== Custom CSS (Purple-Pink Gradient Theme) =====
 st.markdown(
     """
-    <div style="
-        text-align:center;
-        background: linear-gradient(135deg, #1f1c2c, #928DAB);
-        padding:40px;
-        border-radius:20px;
-        color:white;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        margin-bottom:30px;
-    ">
-        <img src="https://i.ibb.co/6v7d2zZ/profile-example.jpg" 
-             alt="Profile" 
-             style="width:130px;height:130px;border-radius:50%;
-                    border:3px solid #00E0FF;
-                    box-shadow:0 0 15px rgba(0,224,255,0.8);
-                    margin-bottom:15px;">
-             
-        <h1 style="color:#00E0FF;margin-top:10px;font-size:32px;">Friendly Chatbot 🤖</h1>
-        <p style="color:#E0E0E0;font-size:17px;">Ask anything — I'll answer you instantly and naturally!</p>
+    <style>
+    /* Background gradient */
+    [data-testid="stAppViewContainer"] {
+        background: linear-gradient(135deg, #3E1E68, #9A348E, #E84A5F);
+        color: white;
+    }
 
-        <p style="margin-top:18px;">
-            <a href="https://www.instagram.com/YOUR_INSTAGRAM_USERNAME" target="_blank" 
-               style="color:#FF69B4;text-decoration:none;font-size:17px;margin-right:15px;font-weight:bold;">
-               📸 Instagram
-            </a>
-            <a href="https://www.facebook.com/YOUR_FACEBOOK_USERNAME" target="_blank" 
-               style="color:#1E90FF;text-decoration:none;font-size:17px;font-weight:bold;">
-               👍 Facebook
-            </a>
-        </p>
-    </div>
+    /* Main title */
+    h1 {
+        font-family: 'Segoe UI', sans-serif;
+        color: #F8E9F9;
+        text-align: center;
+        font-size: 48px;
+        margin-bottom: -10px;
+    }
+
+    /* Sub text */
+    p {
+        text-align: center;
+        font-size: 18px;
+        color: #FFDFFB;
+    }
+
+    /* Input box styling */
+    input {
+        border-radius: 10px !important;
+        padding: 10px !important;
+        font-size: 16px !important;
+        border: 1px solid #E84A5F !important;
+    }
+
+    /* Answer box */
+    .stSuccess {
+        background-color: rgba(232, 74, 95, 0.2) !important;
+        border: 1px solid #FF7AB8 !important;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    /* Spinner text */
+    .stSpinner > div > div {
+        color: #FFD1E9 !important;
+        font-weight: bold;
+    }
+
+    /* Footer */
+    footer {
+        visibility: hidden;
+    }
+
+    .footer {
+        text-align: center;
+        color: #FFD1E9;
+        font-size: 14px;
+        margin-top: 30px;
+    }
+    </style>
     """,
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
-
 
 # ===== UI =====
 st.markdown("<h1>Friendly Chatbot 🤖</h1>", unsafe_allow_html=True)
 st.markdown("<p>Ask anything, and I’ll answer right away!</p>", unsafe_allow_html=True)
 
-st.subheader("Input your question below:")
+st.subheader("Type your question below:")
 user_message = st.text_input("Input your Question here...")
 
 if user_message.strip():
@@ -83,12 +109,11 @@ if user_message.strip():
 # ===== Footer =====
 st.markdown(
     """
-    <hr>
-    <p style="text-align:center;color:#AAAAAA;font-size:12px;">
-    Developed by <strong>Alhassan Mohamed Haggag</strong>
-    </p>
+    <div class="footer">
+        Developed by <strong>Alhassan Mohamed Haggag</strong>
+    </div>
     """,
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
 
 
