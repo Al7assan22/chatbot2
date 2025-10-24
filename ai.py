@@ -28,7 +28,7 @@ def ask_gemini_chatbot(user_input):
     return response.text.strip()
 
 # ===== Streamlit Page Config =====
-st.set_page_config(page_title="Hajar's Chatbot", page_icon="🤖", layout="wide")
+st.set_page_config(page_title="Hajor's Chatbot", page_icon="🤖", layout="wide")
 
 # ===== Custom CSS (Purple-Pink Gradient Theme) =====
 st.markdown(
@@ -95,7 +95,7 @@ st.markdown(
 )
 
 # ===== UI =====
-st.markdown("<h1>Hajar's Chatbot 🤖</h1>", unsafe_allow_html=True)
+st.markdown("<h1>Hajor's Chatbot 🤖</h1>", unsafe_allow_html=True)
 st.markdown("<p>Ask anything, and I’ll answer right away!</p>", unsafe_allow_html=True)
 
 st.subheader("Type your question below:")
@@ -115,6 +115,7 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
 
 
 
