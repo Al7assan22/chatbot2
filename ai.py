@@ -1,120 +1,207 @@
 import streamlit as st
+import pandas as pd
 import google.generativeai as genai
+import matplotlib.pyplot as plt
+import seaborn as sns
+import os
 
-# ===== Gemini API Setup =====
-genai.configure(api_key="AIzaSyBF19kvor-MEHYqBOuEld42GmVA8Ci1x3w")  # ضع مفتاحك هنا
+# ================== 1. Setup API Key and Gemini ==================
+api_key = os.getenv("GEMINI_API_KEY", "AIzaSyBJN5q8Qi1t4ZYHVY8_4iXnqIHkxS5LXe0")
+if not api_key:
+    st.error("Please set the Gemini API key in the GEMINI_API_KEY environment variable.")
+    st.stop()
+else:
+    genai.configure(api_key=api_key)
 
-# ===== Ask Function =====
-def ask_gemini_chatbot(user_input):
+# ================== 2. Load Dataset ==================
+try:
+    df = pd.read_csv("MTA_Daily_Ridership.csv")
+except FileNotFoundError:
+    st.error("Could not find the file 'MTA_Daily_Ridership.csv'. Check the file path.")
+    st.stop()
+
+# Automatically detect key columns
+date_col = next((col for col in df.columns if 'date' in col.lower()), None)
+ridership_col = next((col for col in df.columns if 'ridership' in col.lower()), None)
+station_col = next((col for col in df.columns if 'station' in col.lower()), None)
+
+if date_col:
+    df[date_col] = pd.to_datetime(df[date_col], errors='coerce')
+
+# ================== 3. Gemini AI Query Function ==================
+def ask_gemini(question, df):
+    context = df.head(100).to_string(index=False)
+
+    
     prompt = f"""
-    You are a friendly, conversational assistant.
-    Respond to the user in a natural, warm, and engaging way.
+You are a helpful data analysis assistant.
+The user asked a question about a sample dataset:
 
-    If the user asks (in English or Arabic) who created, made, developed, designed, or programmed you:
-    - If the question is in Arabic, reply exactly with: "تم تطويري بواسطة المهندس الحسن حجاج. 😊"
-    - If the question is in English, reply exactly with: "I was developed by Engineer: Alhassan Haggag. 😊"
+{context}
 
-    If the user asks (in English or Arabic) about information about who developed :
-    - If the question is in Arabic, reply exactly with: "المهندس الحسن حجاج هو الان يدرس معلوماتية الأعمال فى جامعه بنها وهو طالب مجتهد جدا هدفه دائما هو تطوير ذاته فى مجاله لديه خبره كبيره فى مجال تحليل البيانات بشكل خاص ومجال البرمجه بشكل عام المجال الا هو مركز عليه حاليا  هو مجال علوم البيانات والذكاء الاصطناعى وببيطور نفسه فيه يوميا وانا يعتبر اول مشروع هو عمله فى رحلته لتطوير نفسه  فخور وسعيد جدا ان تم تطويرى من  شخص فى ذكاء وطموح الحسن اتمنى له كل التوفيق والنجاح فى مجال الذكاء الاصطناعى وارى فيه شئ كبير جدا"
-    - If the question is in English, reply exactly with: "Engineer AlHassan Hagag is currently studying Business Informatics at Benha University. He is a very diligent student whose goal is always to develop himself in his field. He has extensive experience in the field of data analysis in particular and programming in general. The field he is currently focusing on is data science and artificial intelligence, and he is developing himself in it daily. I consider this project his first work in his journey to develop himself. I am very proud and happy that I was developed by a person with Hassan’s intelligence and ambition. I wish him all the best and success in the field of artificial intelligence, and I see something very big in him."
+Answer the question clearly.
+If the user asks for a chart or visual, return Python code using matplotlib or seaborn.
+Do not leave the answer empty.
 
-    Otherwise, respond normally in the same language the user used.
-
-    User: {user_input}
-    Bot:
-    """
+Question: {question}
+"""
     model = genai.GenerativeModel("gemini-2.5-flash")
     response = model.generate_content(prompt)
-    return response.text.strip()
+    return response.text
 
-# ===== Streamlit Page Config =====
-st.set_page_config(page_title="Hajor's Chatbot", page_icon="🤖", layout="wide")
+# ================== 4. Streamlit UI ==================
+st.set_page_config(page_title="MTA Ridership Chatbot", page_icon="📊", layout="wide")
 
-# ===== Custom CSS (Purple-Pink Gradient Theme) =====
-st.markdown(
-    """
-    <style>
-    /* Background gradient */
-    [data-testid="stAppViewContainer"] {
-        background: linear-gradient(135deg, #3E1E68, #9A348E, #E84A5F);
-        color: white;
-    }
+st.markdown("""
+<style>
+.stApp { 
+    background-image: url("https://i.postimg.cc/nLSV7sRF/Whats-App-Image-2025-11-23-at-12-01-57-AM.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #FFD700;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+}
+h1 { 
+    color: #FFD700; 
+    text-shadow: 2px 2px 5px #000000; 
+    text-align:center;
+}
+.answer-card { 
+    background-color: rgba(255,255,255,0.8); 
+    border-radius: 15px; 
+    padding: 20px; 
+    margin-top: 20px; 
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.5); 
+    color: #000000;
+}
 
-    /* Main title */
-    h1 {
-        font-family: 'Segoe UI', sans-serif;
-        color: #F8E9F9;
-        text-align: center;
-        font-size: 48px;
-        margin-bottom: -10px;
-    }
+.stTextArea textarea { 
+    background-color: rgba(255,255,255,0.8); 
+    color: #000000; 
+    border: 1px solid #FFD700; 
+    border-radius: 10px; 
+    padding: 10px; 
+}
 
-    /* Sub text */
-    p {
-        text-align: center;
-        font-size: 18px;
-        color: #FFDFFB;
-    }
+.stButton button { 
+    background-color: #005f99; 
+    color: white; 
+    border-radius: 10px; 
+    padding: 10px 25px; 
+    font-weight: bold; 
+    border: none; 
+    transition: 0.3s; 
+}
 
-    /* Input box styling */
-    input {
-        border-radius: 10px !important;
-        padding: 10px !important;
-        font-size: 16px !important;
-        border: 1px solid #E84A5F !important;
-    }
+.stButton button:hover { 
+    background-color: #004f80; 
+    cursor: pointer; 
+}
+.stChatMessage p, 
+.stChatMessage span, 
+.stChatMessage div, 
+.stChatMessage {
+    color: white !important;
+}
 
-    /* Answer box */
-    .stSuccess {
-        background-color: rgba(232, 74, 95, 0.2) !important;
-        border: 1px solid #FF7AB8 !important;
-        border-radius: 10px;
-        padding: 10px;
-    }
+/* Markdown inside chat bubbles */
+.stChatMessage .stMarkdown, 
+.stChatMessage .stMarkdown p, 
+.stChatMessage .stMarkdown span {
+    color: white !important;
+}
 
-    /* Spinner text */
-    .stSpinner > div > div {
-        color: #FFD1E9 !important;
-        font-weight: bold;
-    }
+/* User/Assistant labels */
+.stChatMessage [data-testid="stChatMessageAvatar"] + div span {
+    color: white !important;
+}
 
-    /* Footer */
-    footer {
-        visibility: hidden;
-    }
+/* Chat bubble background */
+.stChatMessage {
+    background-color: rgba(0,0,0,0.4) !important;
+    padding: 10px;
+    border-radius: 15px;
+}
 
-    .footer {
-        text-align: center;
-        color: #FFD1E9;
-        font-size: 14px;
-        margin-top: 30px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+.stChatMessage pre, 
+.stChatMessage code {
+    background-color: rgba(0,0,0,0.4) !important;     
+    color: white !important;                          
+    border-radius: 10px;                              
+    padding: 5px 10px;                                 
+    font-family: 'Courier New', Courier, monospace;
+}
 
-# ===== UI =====
-st.markdown("<h1>Hajor's Chatbot 🤖</h1>", unsafe_allow_html=True)
-st.markdown("<p>Ask anything, and I’ll answer right away!</p>", unsafe_allow_html=True)
+.stApp .css-1l02zno { 
+    background-color: transparent !important; 
+}
+.stApp .stChatInput {
+    background-color: transparent !important; 
+    box-shadow: none !important;
+    border: 1px solid #FFD700 !important;    
+    border-radius: 10px;                      
+}
 
-st.subheader("Chat With Me 😊 ")
-user_message = st.text_input("Input your Question here...")
+</style>
 
-if user_message.strip():
-    with st.spinner("⏳ Thinking..."):
-        answer = ask_gemini_chatbot(user_message)
-    st.success(answer)
+<div style="text-align:center; margin-bottom:30px;">
+    <h1>MTA Ridership Chatbot</h1>
+    <p style="font-size:18px; color:#FFFFFF;">Ask questions about your dataset or pick one from the sidebar</p>
+</div>
+""", unsafe_allow_html=True)
 
-# ===== Footer =====
-st.markdown(
-    """
-    <div class="footer">
-        Developed by <strong>Alhassan Mohamed Haggag</strong>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+
+
+# ================== 5. Store Chat Messages ==================
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+def add_message(role, content, fig=None):
+    st.session_state.messages.append({"role": role, "content": content, "chart_figure": fig})
+
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.write(message["content"])
+        if message.get("chart_figure"):
+            st.pyplot(message["chart_figure"])
+
+# ================== 6. Sidebar ==================
+st.sidebar.header("Pinned Questions")
+pinned_questions = [
+    "What is the total ridership by year?",
+    "Show the Most busiest System.",
+    "Visualize ridership trends over time.",
+    "Average daily ridership per month.",
+    "Compare weekday vs weekend ridership."
+]
+selected_question = st.sidebar.radio("Select a question:", options=[""] + pinned_questions, index=0)
+
+# ================== 7. Handle User Input ==================
+user_prompt = st.chat_input("Write your question:")
+
+if selected_question.strip():
+    final_question = selected_question
+elif user_prompt:
+    final_question = user_prompt
+else:
+    final_question = None
+
+if final_question:
+    # Display user question
+    with st.chat_message("user"):
+        st.write(final_question)
+    add_message("user", final_question)
+
+    # Get AI response
+    with st.chat_message("assistant"):
+        with st.spinner("Bot is thinking..."):
+            answer = ask_gemini(final_question, df)
+
+            # Display the answer
+            st.write(answer)
+            add_message("assistant", answer)
 
 
 
