@@ -40,7 +40,7 @@ The user asked a question about a sample dataset:
 {context}
 
 Answer the question clearly.
-If the user asks for a chart or visual, return Python code using matplotlib or seaborn.
+If the user asks for a chart or visual, return chart or visual.
 Do not leave the answer empty.
 
 Question: {question}
@@ -202,5 +202,6 @@ if final_question:
             # Display the answer
             st.write(answer)
             add_message("assistant", answer)
+
 
 
