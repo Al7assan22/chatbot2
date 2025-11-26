@@ -6,7 +6,7 @@ import seaborn as sns
 import os
 
 # ================== 1. Setup API Key and Gemini ==================
-api_key = os.getenv("GEMINI_API_KEY", "AIzaSyBJN5q8Qi1t4ZYHVY8_4iXnqIHkxS5LXe0")
+api_key = os.getenv("GEMINI_API_KEY", "AIzaSyB9Ci7gZlab3YF0QSfTM3BM09DsDO8GwcY")
 if not api_key:
     st.error("Please set the Gemini API key in the GEMINI_API_KEY environment variable.")
     st.stop()
@@ -202,3 +202,4 @@ if final_question:
             # Display the answer
             st.write(answer)
             add_message("assistant", answer)
+
