@@ -9,7 +9,6 @@ import os
 api_key = st.secrets["GEMINI_API_KEY"]
 genai.configure(api_key=api_key)
 
-
 # ================== 2. Load Dataset ==================
 try:
     df = pd.read_csv("MTA_Daily_Ridership.csv")
@@ -199,6 +198,7 @@ if final_question:
             # Display the answer
             st.write(answer)
             add_message("assistant", answer)
+
 
 
 
