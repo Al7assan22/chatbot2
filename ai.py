@@ -6,12 +6,9 @@ import seaborn as sns
 import os
 
 # ================== 1. Setup API Key and Gemini ==================
-api_key = os.getenv(API_KEY)
-if not api_key:
-    st.error("Please set the Gemini API key in the GEMINI_API_KEY environment variable.")
-    st.stop()
-else:
-    genai.configure(api_key=api_key)
+api_key = st.secrets["GEMINI_API_KEY"]
+genai.configure(api_key=api_key)
+
 
 # ================== 2. Load Dataset ==================
 try:
@@ -202,6 +199,7 @@ if final_question:
             # Display the answer
             st.write(answer)
             add_message("assistant", answer)
+
 
 
 
