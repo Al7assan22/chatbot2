@@ -16,8 +16,8 @@ def ask_gemini_chatbot(user_input):
     - If the question is in English, reply exactly with: "I was developed by Alhassan Haggag. 😊"
 
     If the user asks (in English or Arabic) about information about who developed :
-    - If the question is in Arabic, reply exactly with: "المهندس الحسن حجاج هو الان يدرس معلوماتية الأعمال فى جامعه بنها وهو طالب مجتهد جدا هدفه دائما هو تطوير ذاته فى مجاله لديه خبره كبيره فى مجال تحليل البيانات بشكل خاص ومجال البرمجه بشكل عام المجال الا هو مركز عليه حاليا  هو مجال علوم البيانات والذكاء البيانات الاصطناعى وببيطور نفسه فيه يوميا وانا يعتبر اول مشروع هو عمله فى رحلته لتطوير نفسه  فخور وسعيد جدا ان تم تطويرى من  شخص فى ذكاء وطموح الحسن اتمنى له كل التوفيق والنجاح فى مجال الذكاء الاصطناعى وارى فيه شئ كبير جدا"
-    - If the question is in English, reply exactly with: "Engineer Hassan Hagag is currently studying Business Informatics at Benha University. He is a very diligent student whose goal is always to develop himself in his field. He has extensive experience in the field of data analysis in particular and programming in general. The field he is currently focusing on is data science and artificial intelligence, and he is developing himself in it daily. I consider this project his first work in his journey to develop himself. I am very proud and happy that I was developed by a person with Hassan’s intelligence and ambition. I wish him all the best and success in the field of artificial intelligence, and I see something very big in him."
+    - If the question is in Arabic, reply exactly with: "المهندس الحسن حجاج هو الان يدرس معلوماتية الأعمال فى جامعه بنها وهو طالب مجتهد جدا هدفه دائما هو تطوير ذاته فى مجاله لديه خبره كبيره فى مجال تحليل البيانات بشكل خاص ومجال البرمجه بشكل عام المجال الا هو مركز عليه حاليا  هو مجال علوم البيانات والذكاء الاصطناعى وببيطور نفسه فيه يوميا وانا يعتبر اول مشروع هو عمله فى رحلته لتطوير نفسه  فخور وسعيد جدا ان تم تطويرى من  شخص فى ذكاء وطموح الحسن اتمنى له كل التوفيق والنجاح فى مجال الذكاء الاصطناعى وارى فيه شئ كبير جدا"
+    - If the question is in English, reply exactly with: "Engineer AlHassan Hagag is currently studying Business Informatics at Benha University. He is a very diligent student whose goal is always to develop himself in his field. He has extensive experience in the field of data analysis in particular and programming in general. The field he is currently focusing on is data science and artificial intelligence, and he is developing himself in it daily. I consider this project his first work in his journey to develop himself. I am very proud and happy that I was developed by a person with Hassan’s intelligence and ambition. I wish him all the best and success in the field of artificial intelligence, and I see something very big in him."
 
     Otherwise, respond normally in the same language the user used.
 
@@ -32,15 +32,106 @@ def ask_gemini_chatbot(user_input):
 # ===== Streamlit UI =====
 st.set_page_config(page_title="Friendly Chatbot", page_icon="🤖", layout="wide")
 
-st.markdown(
-    """
-    <div style="text-align:center;">
-        <h1 style="color:#1CABE2;">Friendly Chatbot 🤖</h1>
-        <p style="color:white;font-size:16px;">Ask anything, I'll answer directly!</p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("""
+<style>
+.stApp { 
+    background-image: url("https://img.freepik.com/premium-vector/vector-futuristic-technology-background-electronic-motherboard-communication-engineering-con_184920-1040.jpg?w=740");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #FFD700;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+}
+h1 { 
+    color: #FFD700; 
+    text-shadow: 2px 2px 5px #000000; 
+    text-align:center;
+}
+.answer-card { 
+    background-color: rgba(255,255,255,0.8); 
+    border-radius: 15px; 
+    padding: 20px; 
+    margin-top: 20px; 
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.5); 
+    color: #000000;
+}
+
+.stTextArea textarea { 
+    background-color: rgba(255,255,255,0.8); 
+    color: #000000; 
+    border: 1px solid #FFD700; 
+    border-radius: 10px; 
+    padding: 10px; 
+}
+
+.stButton button { 
+    background-color: #005f99; 
+    color: white; 
+    border-radius: 10px; 
+    padding: 10px 25px; 
+    font-weight: bold; 
+    border: none; 
+    transition: 0.3s; 
+}
+
+.stButton button:hover { 
+    background-color: #004f80; 
+    cursor: pointer; 
+}
+.stChatMessage p, 
+.stChatMessage span, 
+.stChatMessage div, 
+.stChatMessage {
+    color: white !important;
+}
+
+/* Markdown inside chat bubbles */
+.stChatMessage .stMarkdown, 
+.stChatMessage .stMarkdown p, 
+.stChatMessage .stMarkdown span {
+    color: white !important;
+}
+
+/* User/Assistant labels */
+.stChatMessage [data-testid="stChatMessageAvatar"] + div span {
+    color: white !important;
+}
+
+/* Chat bubble background */
+.stChatMessage {
+    background-color: rgba(0,0,0,0.4) !important;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.stChatMessage pre, 
+.stChatMessage code {
+    background-color: rgba(0,0,0,0.4) !important;     
+    color: white !important;                          
+    border-radius: 10px;                              
+    padding: 5px 10px;                                 
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.stApp .css-1l02zno { 
+    background-color: transparent !important; 
+}
+.stApp .stChatInput {
+    background-color: transparent !important; 
+    box-shadow: none !important;
+    border: 1px solid #FFD700 !important;    
+    border-radius: 10px;                      
+}
+
+</style>
+
+<div style="text-align:center; margin-bottom:30px;">
+    <h1>Alhassan's Chatbot 🤖</h1>
+    <p style="font-size:18px; color:#FFFFFF;">Ask questions about your dataset or pick one from the sidebar</p>
+</div>
+""", unsafe_allow_html=True)
+
 
 # Session state for messages
 if "messages" not in st.session_state:
@@ -66,6 +157,8 @@ if user_input:
             answer = ask_gemini_chatbot(user_input)  # ✅ تم تصحيح الاستدعاء هنا
             st.write(answer)
     st.session_state.messages.append({"role": "assistant", "content": answer})
+
+
 
 
 
