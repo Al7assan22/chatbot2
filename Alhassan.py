@@ -128,7 +128,7 @@ h1 {
 
 <div style="text-align:center; margin-bottom:30px;">
     <h1>Alhassan's Chatbot 🤖</h1>
-    <p style="font-size:18px; color:#FFFFFF;">Ask questions about your dataset or pick one from the sidebar</p>
+    <p style="font-size:18px; color:#FFFFFF;">Ask anything, I'll answer directly!</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -157,6 +157,7 @@ if user_input:
             answer = ask_gemini_chatbot(user_input)  # ✅ تم تصحيح الاستدعاء هنا
             st.write(answer)
     st.session_state.messages.append({"role": "assistant", "content": answer})
+
 
 
 
