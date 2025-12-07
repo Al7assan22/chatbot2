@@ -3,8 +3,6 @@ import google.generativeai as genai
 import os
 
 # ===== Gemini API Setup =====
-api_key = st.secrets["API_KEY"]
-genai.configure(api_key=api_key)
 
 # ===== Ask Function =====
 def ask_gemini_chatbot(user_input):
@@ -33,29 +31,105 @@ def ask_gemini_chatbot(user_input):
 # ===== Streamlit UI =====
 st.set_page_config(page_title="Friendly Chatbot", page_icon="🤖", layout="wide")
 
-st.markdown(
-    """
-    <style>
-    .stApp { 
-        background-image: url("https://img.freepik.com/premium-vector/vector-futuristic-technology-background-electronic-motherboard-communication-engineering-con_184920-1040.jpg?w=740");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
+st.markdown("""
+<style>
+.stApp { 
+    background-image: url("https://img.freepik.com/premium-vector/vector-futuristic-technology-background-electronic-motherboard-communication-engineering-con_184920-1040.jpg?w=740");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #FFD700;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+}
+h1 { 
+    color: #FFD700; 
+    text-shadow: 2px 2px 5px #000000; 
+    text-align:center;
+}
+.answer-card { 
+    background-color: rgba(255,255,255,0.8); 
+    border-radius: 15px; 
+    padding: 20px; 
+    margin-top: 20px; 
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.5); 
+    color: #000000;
+}
 
-    h1, p {
-        color: #FFFFFF;
-    }
-    </style>
+.stTextArea textarea { 
+    background-color: rgba(255,255,255,0.8); 
+    color: #000000; 
+    border: 1px solid #FFD700; 
+    border-radius: 10px; 
+    padding: 10px; 
+}
 
-    <div style="text-align:center; margin-bottom:20px;">
-        <h1>Alhassan's Chatbot 🤖</h1>
-        <p>Ask anything, I'll answer directly!</p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+.stButton button { 
+    background-color: #005f99; 
+    color: white; 
+    border-radius: 10px; 
+    padding: 10px 25px; 
+    font-weight: bold; 
+    border: none; 
+    transition: 0.3s; 
+}
+
+.stButton button:hover { 
+    background-color: #004f80; 
+    cursor: pointer; 
+}
+.stChatMessage p, 
+.stChatMessage span, 
+.stChatMessage div, 
+.stChatMessage {
+    color: white !important;
+}
+
+/* Markdown inside chat bubbles */
+.stChatMessage .stMarkdown, 
+.stChatMessage .stMarkdown p, 
+.stChatMessage .stMarkdown span {
+    color: white !important;
+}
+
+/* User/Assistant labels */
+.stChatMessage [data-testid="stChatMessageAvatar"] + div span {
+    color: white !important;
+}
+
+/* Chat bubble background */
+.stChatMessage {
+    background-color: rgba(0,0,0,0.4) !important;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.stChatMessage pre, 
+.stChatMessage code {
+    background-color: rgba(0,0,0,0.4) !important;     
+    color: white !important;                          
+    border-radius: 10px;                              
+    padding: 5px 10px;                                 
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.stApp .css-1l02zno { 
+    background-color: transparent !important; 
+}
+.stApp .stChatInput {
+    background-color: transparent !important; 
+    box-shadow: none !important;
+    border: 1px solid #FFD700 !important;    
+    border-radius: 10px;                      
+}
+
+</style>
+
+<div style="text-align:center; margin-bottom:30px;">
+    <h1>Alhassan's Chatbot 🤖</h1>
+    <p style="font-size:18px; color:#FFFFFF;">Ask questions about your dataset or pick one from the sidebar</p>
+</div>
+""", unsafe_allow_html=True)
 
 
 # Session state for messages
@@ -82,7 +156,5 @@ if user_input:
             answer = ask_gemini_chatbot(user_input)  # ✅ تم تصحيح الاستدعاء هنا
             st.write(answer)
     st.session_state.messages.append({"role": "assistant", "content": answer})
-
-
 
 
