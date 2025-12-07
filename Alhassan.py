@@ -3,8 +3,8 @@ import google.generativeai as genai
 import os
 
 # ===== Gemini API Setup =====
-genai.configure(api_key=("AIzaSyBF19kvor-MEHYqBOuEld42GmVA8Ci1x3w"))  # حط مفتاحك هنا
-
+api_key = st.secrets["API_KEY"]
+genai.configure(api_key=api_key)
 # ===== Ask Function =====
 def ask_gemini_chatbot(user_input):
     prompt = f"""
@@ -157,6 +157,7 @@ if user_input:
             answer = ask_gemini_chatbot(user_input)  # ✅ تم تصحيح الاستدعاء هنا
             st.write(answer)
     st.session_state.messages.append({"role": "assistant", "content": answer})
+
 
 
 
